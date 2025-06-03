@@ -1,0 +1,15 @@
+Angielski	Polski
+wake up	budzić się
+get up	wstawać
+take a shower	brać prysznic
+brush teeth	myć zęby
+get dressed	ubierać się
+have breakfast	jeść śniadanie
+go to school/work	iść do szkoły/pracy
+start work	zaczynać pracę
+finish work	kończyć pracę
+do homework	odrabiać lekcje
+have dinner	jeść obiad/kolację
+relax	relaksować się
+go to bed	iść spać
+fall asleep	zasypiać

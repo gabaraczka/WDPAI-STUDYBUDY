@@ -1,0 +1,16 @@
+{
+    "name": "myapp/studybuddy",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Myapp\\Studybuddy\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "^7.9",
+        "smalot/pdfparser": "^1.0",
+        "phpoffice/phpword": "^1.0"        
+    }
+}

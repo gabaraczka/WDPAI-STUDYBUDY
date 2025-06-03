@@ -1,0 +1,24 @@
+.white-block {
+    flex-direction: column;
+    padding: 20px 15px;
+    margin: 100px auto 20px; /* od dołu mniejszy odstęp */
+    gap: 20px;
+    border-radius: 20px;
+    width: 95%;
+    max-height: unset !important;
+    overflow: unset !important;
+}
+
+body {
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* DODAJ TO NA DOLE MEDIA QUERY — daje odstęp i pokazuje tło */
+body::after {
+    content: '';
+    display: block;
+    height: 60px; /* 👈 regulujesz widoczny kawałek tła */
+}

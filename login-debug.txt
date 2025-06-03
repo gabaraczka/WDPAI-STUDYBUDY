@@ -1,0 +1,13 @@
+Array
+(
+    [email_from_form] => gabu@op.pl
+    [user_from_db] => Array
+        (
+            [userid] => 4
+            [password_hash] => $2y$10$.1ZH0efiASMcMHtquAEfMeymhQVem2Bz7EqSkOkAxB3/pizPhjcuy
+        )
+
+    [password_from_form] => 123
+    [password_hash] => $2y$10$.1ZH0efiASMcMHtquAEfMeymhQVem2Bz7EqSkOkAxB3/pizPhjcuy
+    [verify_result] => 1
+)

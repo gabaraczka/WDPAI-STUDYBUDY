@@ -1,0 +1,33 @@
+1. azure. com
+2. utwórz zasób
+3.maszyna wirtualna->utwórz
+4. konfig maszyny
+grupa zasobów : trzeba utworzyc(moja to : maszynka_group)
+nazwa maszyny: x (moja to : maszynka)
+region: polska centralna
+obraz: ja wybralem ubuntu server 24.04 lts - x64 gen2
+architektura : x64
+rozmiar!!!!!!!!!!!!: B1s (darmowe)
+
+nazwa uzytkownika (nie zmieniam): azureuser
+nazwa pary kluczy: maszynka_key(defaultowo)
+publiczne porty ruchu przychodzącego: ssh(22)
+5 .dyski
+ja wybrałem ssd w warstwie premium, reszta default
+6.siec (ja zostawiam default)
+7.zarzadzanie(default)
+8.monitorowanie(default)
+9.zaawansowane (default)
+po utworzeniu:
+1.przejdź do zasobu
+2.sprawdzamy adres ip, zapisujemy go sobie wchodzimy w pyyty i probujemy sie 
+polaczyc na dany adres ip na porcie 22(taki ustawiony defaultowo) moze nie jest to 
+bezpieczne ale nie chce nam sie konfigurowac przekierowywania portow oraz to tylko cwiczenia na bd2.
+Nie będzie dizłąać- podczas tworzenia na azure maszyny zaczął pobierać się plik klucza prywatnego RSA, trzeba go
+znależć, przekonwertować na plik puttego i wybrać w ustawieniach.
+1. wyszukaj -> puttygen -> load ( tu wybieramy pobrany klucz rsa podczas tworzenia) -> save private key(wybieramy miejsce gdzie zapiszemy nasz przekonwertowany klucz)
+2. putty-> hostname : adres ip naszej maszyny; port 22;
+lewe drzewko -> connections-> ssh-> auth-> credentials-> privatekey file for auth -> wybieramy nasz przekonwertowany plik z poprzedniego kroku
+póżniej przewijamy drzewko do gory-> session-> w polu saved sessions wpisujemy nazwe jakąś-> save, i od tej pory wybierasz nazwe maszynki wirutalnej zeby za kazdym razem nie wpisywac ip.
+super twoja maszyna wirtualna działa.
+

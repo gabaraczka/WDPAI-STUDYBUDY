@@ -1,0 +1,174 @@
+@import url('variables.css');
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: var(--navbar-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    box-shadow: var(--shadow);
+}
+
+.nav-logo img {
+    height: 42px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    z-index: 9999;
+    flex-wrap: wrap;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    z-index: 9999;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    z-index: 9999;
+    transition: color 0.2s ease;
+}
+
+.nav-links a.active {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.login-btn, .signup-btn {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--text-light);
+    background-color: var(--navbar-bg);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    border: 0.5px solid var(--primary);
+}
+
+.login-btn {
+    color: var(--text-dark);
+    border-color: var(--text-dark);
+}
+
+.signup-btn {
+    color: var(--secondary);
+    border-color: var(--secondary);
+    margin-right: 30px;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    background: var(--primary);
+    color: var(--text-light);
+}
+
+.hamburger {
+    display: none; 
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    z-index: 100;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 12px 20px;
+    }
+    .nav-logo img {
+        height: 32px;
+    }
+    .hamburger {
+        display: block; 
+        position: absolute;
+        top: 15px;
+        right: 20px; 
+        padding: 10px; 
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 70px;
+        left: 10px; 
+        right: 10px; 
+        background: var(--navbar-bg);
+        padding: 20px;
+        box-shadow: var(--box-shadow);
+        border-radius: 0 0 12px 12px;
+        z-index: 9999;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 368px) {
+    .navbar {
+        padding: 8px 10px;
+    }
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 70px;
+        left: 5px; 
+        right: 5px; 
+        background: var(--navbar-bg);
+        padding: 15px;
+        box-shadow: var(--box-shadow);
+        border-radius: 0 0 12px 12px;
+        z-index: 9999;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .nav-links a {
+        font-size: 18px;
+        display: block;
+        padding: 10px;
+    }
+
+    .login-btn, .signup-btn {
+        width: 100%;
+        margin: 5px 0;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .hamburger {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 15px; 
+        padding: 8px; 
+    }
+}

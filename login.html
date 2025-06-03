@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="styles-log-reg.css">
+
+    <script src="main.js" defer></script>
+</head>
+<body>
+   
+<body>
+    <div class="navbar">
+        <div class="nav-logo">
+            <img src="logo.png" alt="Study Buddy">
+        </div>
+        <div class="nav-menu" id="nav-menu">
+            <div class="nav-links">
+                <a href="home-page.php">Home</a>
+                <a href="generate.php" class="active">Create Summary</a>
+                <a href="study-cards.php">Study Cards</a>
+            </div>
+            <div>
+                <a href="login.html" class="login-btn">Log in</a>
+                <a href="register.html" class="signup-btn">Sign up</a>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="login-box">
+            <h1>Study Buddy</h1>
+            <h2>Sign in</h2>
+            <p>Don't have an account? <a href="register.html">Sign up</a></p>
+
+            <form class="login-form">
+                <div class="input-group">
+                    <label for="email">Email address</label>
+                    <div class="ikony">
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                        <i class="fa-solid fa-at"></i>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="ikony">
+                        <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="button">Sign in</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
