@@ -183,9 +183,26 @@ if ($isLoggedIn) {
             $uploadsDir = __DIR__ . '/uploads';
             $filePath = $uploadsDir . '/' . basename($fileName);
 
+            error_log("Upload attempt - File: " . $fileName);
+            error_log("Upload directory: " . $uploadsDir);
+            error_log("File path: " . $filePath);
+            error_log("Folder ID: " . $folderID);
+            error_log("User ID: " . $userID);
+
             if (!is_dir($uploadsDir)) {
+                error_log("Creating uploads directory...");
                 if (!mkdir($uploadsDir, 0777, true)) {
+                    error_log("Failed to create uploads directory. Error: " . error_get_last()['message']);
                     die("❌ Failed to create uploads directory.");
+                }
+                error_log("Uploads directory created successfully");
+            }
+
+            if (!is_writable($uploadsDir)) {
+                error_log("Uploads directory is not writable");
+                chmod($uploadsDir, 0777);
+                if (!is_writable($uploadsDir)) {
+                    die("❌ Uploads directory is not writable");
                 }
             }
 
@@ -196,10 +213,13 @@ if ($isLoggedIn) {
             $folderExists = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$folderExists) {
+                error_log("Invalid folder selection. Folder ID: " . $folderID . ", User ID: " . $userID);
                 die("❌ Invalid folder selection.");
             }
 
+            error_log("Attempting to move uploaded file...");
             if (move_uploaded_file($_FILES['file']['tmp_name'], $filePath)) {
+                error_log("File moved successfully");
                 try {
                     $stmt = $conn->prepare("INSERT INTO materials (userid, material_name, material_path, folderid) VALUES (:userID, :materialName, :materialPath, :folderID)");
                     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -207,13 +227,18 @@ if ($isLoggedIn) {
                     $stmt->bindParam(':materialPath', $filePath, PDO::PARAM_STR);
                     $stmt->bindParam(':folderID', $folderID, PDO::PARAM_INT);
                     $stmt->execute();
+                    error_log("Material added to database successfully");
 
                     header("Location: generate.php");
                     exit();
                 } catch (PDOException $e) {
+                    error_log("Error adding material to database: " . $e->getMessage());
                     die("❌ Error adding material: " . $e->getMessage());
                 }
             } else {
+                error_log("Failed to move uploaded file. Upload error code: " . $_FILES['file']['error']);
+                error_log("Temporary file exists: " . (file_exists($_FILES['file']['tmp_name']) ? 'yes' : 'no'));
+                error_log("Destination path is writable: " . (is_writable(dirname($filePath)) ? 'yes' : 'no'));
                 die("❌ Failed to upload file.");
             }
         }
@@ -356,6 +381,13 @@ if ($isLoggedIn) {
         <div class="white-block">
             <div class="left-section">
                 <h1>Add Materials</h1>
+                
+                <!-- Add hidden file upload form -->
+                <form id="uploadForm" action="generate.php" method="POST" enctype="multipart/form-data" style="display: none;">
+                    <input type="file" id="fileInput" name="file">
+                    <input type="hidden" id="selectedFolderID" name="folderID" value="">
+                </form>
+
                 <div class="file-list" id="fileList">
                     <?php if (!empty($folders)): ?>
                         <?php foreach ($folders as $folder): ?>

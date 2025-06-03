@@ -94,26 +94,26 @@ class UploadApp {
     }
 
     setupFileTriggers() {
-        if (this.triggerFileInput) {
-            this.triggerFileInput.addEventListener("click", () => {
-                const selectedFolder = Array.from(this.folderCheckboxes).find(cb => cb.checked);
+        const triggerFileInput = document.getElementById("triggerFileInput");
+        const fileInput = document.getElementById("fileInput");
+        const uploadForm = document.getElementById("uploadForm");
+        const selectedFolderID = document.getElementById("selectedFolderID");
+        const folderCheckboxes = document.querySelectorAll(".folder-checkbox");
+
+        if (triggerFileInput && fileInput && uploadForm) {
+            triggerFileInput.addEventListener("click", () => {
+                const selectedFolder = Array.from(folderCheckboxes).find(cb => cb.checked);
                 if (!selectedFolder) {
                     alert("Please select a folder before adding materials.");
                     return;
                 }
-                this.selectedFolderID.value = selectedFolder.value;
-                this.fileInput.click();
+                selectedFolderID.value = selectedFolder.value;
+                fileInput.click();
             });
-        }
 
-        if (this.triggerFileInput2) {
-            this.triggerFileInput2.addEventListener("click", () => this.fileInput.click());
-        }
-
-        if (this.fileInput) {
-            this.fileInput.addEventListener("change", () => {
-                if (this.fileInput.files.length) {
-                    this.uploadForm.submit();
+            fileInput.addEventListener("change", () => {
+                if (fileInput.files.length > 0) {
+                    uploadForm.submit();
                 }
             });
         }
@@ -242,16 +242,39 @@ class UploadApp {
     }
 
     setupMaterialDelete() {
-        if (this.deleteButton) {
-            this.deleteButton.addEventListener("click", (e) => {
-                const selectedCheckbox = Array.from(this.materialCheckboxes).find(cb => cb.checked);
-                if (selectedCheckbox) {
-                    this.deleteMaterialID.value = selectedCheckbox.value;
-                    this.removeMaterialForm.submit();
-                } else {
-                    alert("Please select a material to delete.");
-                    e.preventDefault();
+        const deleteButton = document.querySelector(".remove-item-btn");
+        const deleteIDInput = document.getElementById("deleteID");
+        const deleteTypeInput = document.getElementById("deleteType");
+        const materialCheckboxes = document.querySelectorAll(".material-checkbox");
+        const folderCheckboxes = document.querySelectorAll(".folder-checkbox");
+
+        if (deleteButton) {
+            deleteButton.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Check for selected materials first
+                const selectedMaterial = Array.from(materialCheckboxes).find(cb => cb.checked);
+                if (selectedMaterial) {
+                    deleteIDInput.value = selectedMaterial.value;
+                    deleteTypeInput.value = 'material';
+                    if (confirm('Are you sure you want to delete this material?')) {
+                        deleteButton.closest('form').submit();
+                    }
+                    return;
                 }
+
+                // Then check for selected folders
+                const selectedFolder = Array.from(folderCheckboxes).find(cb => cb.checked);
+                if (selectedFolder) {
+                    deleteIDInput.value = selectedFolder.value;
+                    deleteTypeInput.value = 'folder';
+                    if (confirm('Are you sure you want to delete this folder and all its contents?')) {
+                        deleteButton.closest('form').submit();
+                    }
+                    return;
+                }
+
+                alert('Please select a material or folder to delete.');
             });
         }
     }
