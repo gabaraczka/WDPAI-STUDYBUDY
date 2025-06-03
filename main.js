@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const registerForm = document.querySelector(".register-form");
     const loginForm = document.querySelector(".login-form");
 
-    const serverUrl = "http://localhost:8080/auth.php"; 
+    const serverUrl = "./auth.php";
 
     if (registerForm) {
         registerForm.addEventListener("submit", function (e) {
@@ -23,18 +23,24 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(serverUrl, {
                 method: "POST",
                 body: formData,
+                credentials: 'same-origin'
             })
             .then(response => {
                 console.log("HTTP Status:", response.status);
+                console.log("Response headers:", Object.fromEntries(response.headers.entries()));
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.text();
+                return response.text().then(text => {
+                    console.log("Raw response:", text);
+                    return text;
+                });
             })
             .then(text => {
-                console.log("Server response:", text); 
+                console.log("Processing response:", text);
                 try {
-                    const data = JSON.parse(text); 
+                    const data = JSON.parse(text);
+                    console.log("Parsed data:", data);
                     if (data.error) {
                         alert(data.error);
                     } else {
@@ -47,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(error => {
-                console.error("Błąd sieci:", error.message); 
+                console.error("Network or parsing error:", error);
+                console.error("Error details:", error.stack);
                 alert("Błąd sieci. Spróbuj ponownie. Szczegóły w konsoli.");
             });
         });
@@ -63,18 +70,24 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(serverUrl, {
                 method: "POST",
                 body: formData,
+                credentials: 'same-origin'
             })
             .then(response => {
-                console.log("HTTP Status:", response.status); 
+                console.log("HTTP Status:", response.status);
+                console.log("Response headers:", Object.fromEntries(response.headers.entries()));
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.text();
+                return response.text().then(text => {
+                    console.log("Raw response:", text);
+                    return text;
+                });
             })
             .then(text => {
-                console.log("Server response:", text); 
+                console.log("Processing response:", text);
                 try {
                     const data = JSON.parse(text);
+                    console.log("Parsed data:", data);
                     if (data.error) {
                         alert(data.error);
                     } else {
@@ -87,7 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(error => {
-                console.error("Błąd sieci:", error.message);
+                console.error("Network or parsing error:", error);
+                console.error("Error details:", error.stack);
                 alert("Błąd sieci. Spróbuj ponownie. Szczegóły w konsoli.");
             });
         });
