@@ -11,7 +11,6 @@ class UploadApp {
         this.summaryResult = document.getElementById("summaryResult");
         this.summaryText = document.getElementById("summaryText");
         this.triggerFileInput = document.getElementById("triggerFileInput");
-        this.triggerFileInput2 = document.getElementById("triggerFileInput2");
         this.sendNoteButton = document.getElementById("sendNote");
         this.notesInput = document.getElementById("notesInput");
         this.folderSelect = document.getElementById("folderSelect");
@@ -37,7 +36,6 @@ class UploadApp {
         this.setupAddFolder();
         this.setupGenerateSummary();
         this.setupMaterialDelete();
-        this.logMaterialSelection();
     }
 
     setupHamburger() {
@@ -277,13 +275,5 @@ class UploadApp {
                 alert('Please select a material or folder to delete.');
             });
         }
-    }
-
-    logMaterialSelection() {
-        this.materialCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener("change", () => {
-                console.log(`Material selected: ${checkbox.value}`);
-            });
-        });
     }
 }
