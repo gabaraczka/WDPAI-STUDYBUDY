@@ -1,0 +1,90 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git init
+Initialized empty Git repository in C:/Users/gabri/Downloads/LAB01-KONFIGURACJA-20250302T072115Z-001/LAB01-KONFIGURACJA/.git/
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        README.md
+        docker-compose.yaml
+        docker/
+        index.php
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git add .
+warning: in the working copy of 'docker-compose.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docker/db/Dockerfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docker/nginx/Dockerfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docker/nginx/nginx.conf', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docker/php/Dockerfile', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.php', LF will be replaced by CRLF the next time Git touches it
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git log --oneline
+fatal: your current branch 'master' does not have any commits yet
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git commit -m"Initial commit"
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'gabri@Gabs.(none)')
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git config --global user.email "gabriela.raczkaa@gmail.com"
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git config --global user.name "gabarczka"
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git commit -m"Initial commit"
+[master (root-commit) 3b4b2ad] Initial commit
+ 7 files changed, 124 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 docker-compose.yaml
+ create mode 100644 docker/db/Dockerfile
+ create mode 100644 docker/nginx/Dockerfile
+ create mode 100644 docker/nginx/nginx.conf
+ create mode 100644 docker/php/Dockerfile
+ create mode 100644 index.php
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git remote add origin https://github.com/gabaraczka/WDPAI.git
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git branch
+* master
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git remote -v
+origin  https://github.com/gabaraczka/WDPAI.git (fetch)
+origin  https://github.com/gabaraczka/WDPAI.git (push)
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/gabaraczka/WDPAI.git'
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git push -u origin master
+info: please complete authentication in your browser...
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (13/13), 1.73 KiB | 1.73 MiB/s, done.
+Total 13 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/gabaraczka/WDPAI.git
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git branch
+* master
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git fetch
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA> git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+PS C:\Users\gabri\Downloads\LAB01-KONFIGURACJA-20250302T072115Z-001\LAB01-KONFIGURACJA>

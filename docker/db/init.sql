@@ -1,44 +1,68 @@
--- Tabele
+DROP TABLE IF EXISTS studycards_log;
+DROP TABLE IF EXISTS studycards;
+DROP TABLE IF EXISTS materials;
+DROP TABLE IF EXISTS folders;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS notes;
 
-create table users (
-    userid serial primary key,
-    login text not null unique,
-    password_hash text not null,
-    email text,
-    admin boolean default false,
-    created_at timestamp default current_timestamp
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-create table folders (
-    folderid serial primary key,
-    userid integer references users(userid) on delete cascade,
-    folder_name text not null
+CREATE TABLE folders (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    folder_name TEXT NOT NULL
 );
 
-create table materials (
-    materialid serial primary key,
-    userid integer references users(userid) on delete cascade,
-    folderid integer references folders(folderid) on delete set null,
-    material text,
-    material_name text not null,
-    material_data bytea,
-    material_path text
+CREATE TABLE materials (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    folder_id INTEGER REFERENCES folders(id) ON DELETE SET NULL,
+    material TEXT,
+    material_name TEXT NOT NULL,
+    material_data BYTEA,
+    material_path TEXT
 );
 
-create table studycards (
-    studycardid serial primary key,
-    folderid integer references folders(folderid) on delete cascade,
-    title text not null,
-    content text,
-    back_content text
+CREATE TABLE studycards (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    folder_id INTEGER REFERENCES folders(id) ON DELETE CASCADE,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-create table studycards_log (
-    logid serial primary key,
-    studycardid integer references studycards(studycardid) on delete cascade,
-    action text,
-    timestamp timestamp default current_timestamp
+CREATE TABLE studycards_log (
+    id SERIAL PRIMARY KEY,
+    studycard_id INTEGER REFERENCES studycards(id) ON DELETE CASCADE,
+    action TEXT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE notes (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    folder_id INTEGER REFERENCES folders(id) ON DELETE CASCADE,
+    note_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Grant privileges
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO docker;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO docker;
+GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO docker;
+
+-- Create indexes
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_folders_user_id ON folders(user_id);
+CREATE INDEX idx_materials_folder_id ON materials(folder_id);
+CREATE INDEX idx_studycards_user_id ON studycards(user_id);
+CREATE INDEX idx_studycards_folder_id ON studycards(folder_id);
 
 -- Widok 1: view_materials_summary
 
@@ -52,7 +76,6 @@ from materials m
 join folders f on m.folderid = f.folderid
 join users u on f.userid = u.userid;
 
--- Widok 2: view_studycards_info
 
 create or replace view view_studycards_info as
 select 
@@ -64,7 +87,6 @@ from studycards s
 join folders f on s.folderid = f.folderid
 join users u on f.userid = u.userid;
 
--- Funkcja: count_user_cards
 
 create or replace function count_user_cards(integer)
 returns integer as $$
@@ -80,7 +102,6 @@ begin
 end;
 $$ language plpgsql;
 
--- Wyzwalacz: trg_studycard_insert
 
 create or replace function log_studycard_insert()
 returns trigger as $$
@@ -95,7 +116,6 @@ create trigger trg_studycard_insert
 after insert on studycards
 for each row
 execute function log_studycard_insert();
-
 
 GRANT ALL PRIVILEGES ON DATABASE db TO docker;
 
