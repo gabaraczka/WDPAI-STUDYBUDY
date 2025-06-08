@@ -6,7 +6,7 @@ Nowoczesna aplikacja webowa do tworzenia materiałów edukacyjnych i fiszek do n
 
 **StudyBuddy** to inteligentna platforma edukacyjna, która wykorzystuje technologię OpenAI do automatycznego tworzenia materiałów do nauki. Aplikacja pozwala użytkownikom na:
 
--  **Organizację materiałów** - tworzenie folderów tematycznych i przesyłanie plików (PDF, DOC, TXT)
+-  **Organizację materiałów** - tworzenie folderów tematycznych i przesyłanie plików (.TXT)
 -  **AI-powered streszczenia** - automatyczne generowanie streszczeń z przesłanych dokumentów  
 -  **Inteligentne fiszki** - tworzenie fiszek do nauki na podstawie materiałów za pomocą sztucznej inteligencji
 -  **Intuicyjny interfejs** - responsywny design dostosowany do wszystkich urządzeń
