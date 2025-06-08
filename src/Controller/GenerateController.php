@@ -52,7 +52,6 @@ class GenerateController {
                 }
                 
                 if (isset($input['noteText'])) {
-                    // Enable error reporting for debugging
                     ini_set('display_errors', 1);
                     error_reporting(E_ALL);
                     
@@ -73,7 +72,6 @@ class GenerateController {
                     
                     $folderId = intval($selectedFolders[0]);
                     
-                    // Verify folder belongs to user
                     $userFolders = $this->folderRepository->findByUserId($userId);
                     $folderExists = false;
                     foreach ($userFolders as $folder) {
@@ -103,7 +101,6 @@ class GenerateController {
                 }
                 
                 if (isset($input['selectedFiles'])) {
-                    // Handle summary generation with OpenAI
                     $selectedFileIds = $input['selectedFiles'];
                     $summaryData = [];
                     
@@ -111,13 +108,10 @@ class GenerateController {
                         $material = $this->materialRepository->findById(intval($materialId));
                         if ($material && $material->getUserId() === $userId) {
                             try {
-                                // Check if this is a note (no file path)
-                                if (empty($material->getMaterialPath()) && strpos($material->getMaterialName(), '[NOTATKA] ') === 0) {
-                                    // For notes, use the note text directly
-                                    $noteText = substr($material->getMaterialName(), 10); // Remove '[NOTATKA] ' prefix
+                                if (empty($material->getMaterialPath()) && $this->materialRepository->isNote($material)) {
+                                    $noteText = $this->materialRepository->getNoteText($material);
                                     $summary = $this->openAIService->generateSummaryFromText($noteText, $material->getMaterialName());
                                 } else {
-                                    // For files, use the file path
                                     $filePath = __DIR__ . '/../../uploads/' . $material->getMaterialPath();
                                     $summary = $this->openAIService->generateSummary($filePath, $material->getMaterialName());
                                 }
@@ -285,6 +279,8 @@ class GenerateController {
                 $folderMaterials[$folder->getId()] = $this->materialRepository->findByFolderId($folder->getId());
             }
         }
+        
+        $materialRepository = $this->materialRepository;
         
         require_once __DIR__ . '/../View/generate/index.php';
     }

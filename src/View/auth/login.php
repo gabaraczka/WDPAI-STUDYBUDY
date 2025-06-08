@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/css/navbar.css">
     <link rel="stylesheet" href="/assets/css/styles-log-reg.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/assets/js/hamburger.js" defer></script>
 </head>
 <body>
 <div class="navbar">
@@ -85,12 +86,23 @@
     </div>
 
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+            if (!email || !password) {
+                alert('Wypełnij wszystkie pola!');
+                return false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Podaj prawidłowy adres email!');
+                return false;
+            }
+
+            return true;
+        }
     </script>
 </body>
 </html> 

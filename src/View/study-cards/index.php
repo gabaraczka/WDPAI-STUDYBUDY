@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/navbar.css">
     <link rel="stylesheet" href="/assets/css/styles-study-cards.css">
+    <script src="/assets/js/hamburger.js" defer></script>
     <style>
         .btn-reverse {
             width: 40px;
@@ -129,13 +130,6 @@
     <?php endif; ?>
 
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
         // pop up pojawia sie na 5 sekund
         setTimeout(() => {
             const alerts = document.querySelectorAll('.alert');

@@ -44,7 +44,6 @@ class StudyCardController {
         try {
             $folderIdInt = (int)$folderId;
             
-            // Verify folder belongs to user
             $folder = $this->folderRepository->findById($folderIdInt);
             if (!$folder || $folder->getUserId() !== $_SESSION['user_id']) {
                 http_response_code(403);
@@ -124,12 +123,10 @@ class StudyCardController {
                 return;
             }
 
-            // Generate study cards using OpenAI
             $prompt = "Na podstawie poniższej treści, stwórz 5-10 fiszek do nauki w formacie JSON. Każda fiszka to obiekt z polami 'question' i 'answer'. Odpowiedź w języku polskim w formacie:\n[\n  {\"question\": \"pytanie\", \"answer\": \"odpowiedź\"},\n  {\"question\": \"pytanie2\", \"answer\": \"odpowiedź2\"}\n]\n\nTreść:\n" . $allContent;
             
             $response = $this->openAIService->generateText($prompt);
             
-            // Try to parse JSON from response
             $cards = $this->parseStudyCardsFromResponse($response);
             
             if (empty($cards)) {

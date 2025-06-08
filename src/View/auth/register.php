@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/css/navbar.css">
     <link rel="stylesheet" href="/assets/css/styles-log-reg.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/assets/js/hamburger.js" defer></script>
 </head>
 <body>
     <div class="navbar">
@@ -87,13 +88,6 @@
     </div>
 
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
         function validateForm() {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;

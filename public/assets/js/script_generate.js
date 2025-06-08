@@ -5,45 +5,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 class UploadApp {
     constructor() {
-        this.uploadForm = document.getElementById("uploadForm");
         this.fileInput = document.getElementById("fileInput");
+        this.uploadForm = document.getElementById("uploadForm");
         this.loading = document.getElementById("loading");
         this.summaryResult = document.getElementById("summaryResult");
-        this.summaryText = document.getElementById("summaryText");
-        this.triggerFileInput = document.getElementById("triggerFileInput");
-        this.sendNoteButton = document.getElementById("sendNote");
+        this.generateButton = document.getElementById("generateSummary");
+        this.generateResponseBtn = document.getElementById("generateResponse");
+        this.addFolderBtn = document.getElementById("addFolderBtn");
+        this.sendNoteButton = document.getElementById("sendNoteButton");
         this.notesInput = document.getElementById("notesInput");
-        this.folderSelect = document.getElementById("folderSelect");
-        this.folderCheckboxes = document.querySelectorAll(".folder-checkbox");
-        this.selectedFolderID = document.getElementById("selectedFolderID");
-        this.hamburger = document.getElementById("hamburger");
-        this.navMenu = document.getElementById("nav-menu");
+        this.hamburger = document.querySelector(".hamburger");
+        this.navMenu = document.querySelector(".nav-menu");
         this.generateBtn = document.querySelector(".generate-btn");
-        this.addFolderBtn = document.querySelector(".add-folder-btn");
-        this.generateButton = document.getElementById("generateResponse");
         this.materialCheckboxes = document.querySelectorAll(".material-checkbox");
-        this.deleteMaterialID = document.getElementById("deleteMaterialID");
-        this.removeMaterialForm = document.querySelector(".remove-material-form");
-        this.deleteButton = document.querySelector(".remove-material-btn");
+        this.folderCheckboxes = document.querySelectorAll(".folder-checkbox");
+        this.deleteCheckboxes = document.querySelectorAll("input[name='deleteFiles[]']");
+        this.deleteBtn = document.getElementById("deleteSelectedBtn");
+
+        this.setupFileTriggers();
     }
 
     init() {
-        this.setupHamburger();
         this.setupRedirectToGenerate();
         this.setupSendNote();
-        this.setupFileTriggers();
         this.setupUpload();
         this.setupAddFolder();
+        this.setupGenerateResponse();
         this.setupGenerateSummary();
         this.setupMaterialDelete();
-    }
-
-    setupHamburger() {
-        if (this.hamburger) {
-            this.hamburger.addEventListener("click", () => {
-                this.navMenu.classList.toggle("active");
-            });
-        }
     }
 
     setupRedirectToGenerate() {
@@ -211,6 +200,57 @@ class UploadApp {
                     .catch((err) => {
                         console.error("❌ Błąd JSON lub fetch:", err);
                         alert("Wystąpił błąd (brak JSON lub odpowiedź HTML).");
+                    });
+            });
+        }
+    }
+
+    setupGenerateResponse() {
+        if (this.generateResponseBtn) {
+            this.generateResponseBtn.addEventListener("click", () => {
+                const selectedFiles = Array.from(this.materialCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                if (selectedFiles.length === 0) {
+                    alert("Wybierz co najmniej jeden plik przed generowaniem streszczenia.");
+                    return;
+                }
+
+                this.loading.classList.remove("hidden");
+                this.summaryResult.classList.add("hidden");
+
+                fetch("/generate", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ selectedFiles })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.loading.classList.add("hidden");
+                        console.log("ODPOWIEDŹ Z BACKENDU:", data);
+
+                        if (data.success) {
+                            this.summaryResult.classList.remove("hidden");
+                            const summaryText = document.getElementById("summaryText");
+                            if (summaryText) {
+                                summaryText.innerHTML = data.data.map(file => `
+                                    <div class="summary-block">
+                                        <h3>${file.material_name}</h3>
+                                        <p>${file.summary}</p>
+                                    </div>
+                                `).join("");
+                            }
+                        } else {
+                            alert(data.error || "Wystąpił błąd podczas generowania streszczenia.");
+                        }
+                    })
+                    .catch(error => {
+                        this.loading.classList.add("hidden");
+                        console.error("Błąd:", error);
+                        alert("Błąd podczas generowania streszczenia.");
                     });
             });
         }

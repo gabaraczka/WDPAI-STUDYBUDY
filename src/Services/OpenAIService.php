@@ -13,8 +13,8 @@ class OpenAIService {
         
 
         if (!$apiKey) {
-            $apiKey =  "TWÓJ_OPENAI_API_KEY_TUTAJ";
-
+            $apiKey = 
+            "open_api_key";
         }
         
         if ($apiKey === 'your-openai-api-key-here' || empty($apiKey)) {
@@ -130,13 +130,14 @@ class OpenAIService {
         $output = shell_exec($command);
         
         if ($output === null) {
-            return "Ekstrakcja zawartości PDF niedostępna. Zainstaluj pdftotext.";
+            return "Zainstaluj pdftotext.";
         }
         
         return $output;
     }
     
     private function extractDocContent(string $filePath): string {
+
         return "Ekstrakcja zawartości DOC/DOCX nie jest jeszcze zaimplementowana. Użyj plików TXT lub PDF.";
     }
 } 

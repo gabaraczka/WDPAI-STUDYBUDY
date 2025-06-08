@@ -113,6 +113,12 @@ class MaterialRepository {
     }
     
     public function createNote(int $userId, int $folderId, string $noteText): bool {
+        $timestamp = date('ymd_His');
+        
+        $noteText = mb_convert_encoding($noteText, 'UTF-8', 'UTF-8');
+        $noteText = trim($noteText);
+        $noteText = htmlspecialchars($noteText, ENT_QUOTES, 'UTF-8');
+        
         $stmt = $this->database->prepare('
             INSERT INTO materials (userid, folderid, material_name, material_path) 
             VALUES (:userid, :folderid, :material_name, :material_path)
@@ -121,18 +127,18 @@ class MaterialRepository {
         return $stmt->execute([
             'userid' => $userId,
             'folderid' => $folderId,
-            'material_name' => '[NOTATKA] ' . $noteText,
+            'material_name' => $timestamp . '_NOTATKA: ' . substr($noteText, 0, 200),
             'material_path' => ''
         ]);
     }
     
     public function isNote(Material $material): bool {
-        return strpos($material->getMaterialName(), '[NOTATKA] ') === 0;
+        return preg_match('/^\d{6}_\d{6}_NOTATKA: /', $material->getMaterialName());
     }
     
     public function getNoteText(Material $material): string {
         if ($this->isNote($material)) {
-            return substr($material->getMaterialName(), 10); // Usuń prefix '[NOTATKA] '
+            return preg_replace('/^\d{6}_\d{6}_NOTATKA: /', '', $material->getMaterialName());
         }
         return '';
     }

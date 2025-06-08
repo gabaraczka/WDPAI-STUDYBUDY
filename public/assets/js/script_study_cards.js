@@ -14,29 +14,18 @@ class CardApp {
         this.reverseBtn = document.getElementById("reverseBtn");
         this.prevBtn = document.querySelector('.btn-prev');
         this.nextBtn = document.querySelectorAll('.btn-next')[1];
-        this.hamburger = document.getElementById('hamburger');
-        this.navMenu = document.getElementById('nav-menu');
 
         this.cards = [];
         this.currentIndex = 0;
     }
 
     init() {
-        this.setupHamburger();
         this.setupFolderSelection();
         this.setupGenerate();
         this.setupDelete();
         this.setupReverse();
         this.setupNavigation();
         this.loadDefaultFolder();
-    }
-
-    setupHamburger() {
-        if (this.hamburger) {
-            this.hamburger.addEventListener('click', () => {
-                this.navMenu.classList.toggle('active');
-            });
-        }
     }
 
     setupFolderSelection() {

@@ -11,9 +11,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/navbar.css">
-    <link rel="stylesheet" href="/assets/css/styles_generate.css">
+    <link rel="stylesheet" href="/assets/css/styles_generate_new.css">
 
     <script src="/assets/js/script_generate.js" defer></script>
+    <script src="/assets/js/hamburger.js" defer></script>
 </head>
 <body>
     <div class="navbar">
@@ -95,7 +96,7 @@
                                             $regularMaterials = [];
                                             $notes = [];
                                             foreach ($folderMaterials[$folder->getId()] as $material) {
-                                                if (strpos($material->getMaterialName(), '[NOTATKA] ') === 0) {
+                                                if ($materialRepository->isNote($material)) {
                                                     $notes[] = $material;
                                                 } else {
                                                     $regularMaterials[] = $material;
@@ -134,7 +135,7 @@
                                                                 <input type="checkbox" class="material-checkbox" id="note-<?php echo $note->getId(); ?>" value="<?php echo $note->getId(); ?>">
                                                                 <label for="note-<?php echo $note->getId(); ?>" style="display: flex; align-items: center; gap: 8px; flex: 1;">
                                                                     <i class="fas fa-note-sticky"></i>
-                                                                    <span class="note-text"><?php echo htmlspecialchars(substr($note->getMaterialName(), 10)); ?></span>
+                                                                    <span class="note-text"><?php echo htmlspecialchars($materialRepository->getNoteText($note)); ?></span>
                                                                 </label>
                                                                 <form method="POST" action="/generate" style="display: inline; margin-left: auto;">
                                                                     <input type="hidden" name="deleteID" value="<?php echo $note->getId(); ?>">
@@ -171,7 +172,7 @@
                 </form>
         
                 <div class="button-group">
-                    <button class="add-folder-btn" title="Dodaj folder">
+                    <button class="add-folder-btn" id="addFolderBtn" title="Dodaj folder">
                         <i class="fas fa-folder-plus"></i>
                         <span class="btn-text">Add Folder</span>
                     </button>
@@ -209,7 +210,7 @@
                 
                 <h2>Add Notes</h2>
                 <textarea id="notesInput" placeholder="Write your notes here..."></textarea>
-                <button id="sendNote" class="generate-response-btn">
+                <button id="sendNoteButton" class="generate-response-btn">
                     <i class="fas fa-paper-plane"></i> Send Note
                 </button>
             </div>
@@ -219,14 +220,7 @@
     <div class="background-image"></div>
 
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-            //popup pojawia sie na 5s
+        // Auto-hide session messages after 5 seconds
         setTimeout(() => {
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(alert => {

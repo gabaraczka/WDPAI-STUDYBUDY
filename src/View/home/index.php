@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
 
     <script src="/assets/js/script.js" defer></script>
+    <script src="/assets/js/hamburger.js" defer></script>
 </head>
 <body>
     <div class="navbar">
@@ -72,14 +73,5 @@
             </div> 
         </div>
     </div>
-
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-    </script>
 </body>
 </html> 
