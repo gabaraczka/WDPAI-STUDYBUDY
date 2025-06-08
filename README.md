@@ -6,13 +6,13 @@ Nowoczesna aplikacja webowa do tworzenia materiałów edukacyjnych i fiszek do n
 
 **StudyBuddy** to inteligentna platforma edukacyjna, która wykorzystuje technologię OpenAI do automatycznego tworzenia materiałów do nauki. Aplikacja pozwala użytkownikom na:
 
-- 📁 **Organizację materiałów** - tworzenie folderów tematycznych i przesyłanie plików (PDF, DOC, TXT)
-- 🤖 **AI-powered streszczenia** - automatyczne generowanie streszczeń z przesłanych dokumentów  
-- 🎯 **Inteligentne fiszki** - tworzenie fiszek do nauki na podstawie materiałów za pomocą sztucznej inteligencji
-- 📱 **Intuicyjny interfejs** - responsywny design dostosowany do wszystkich urządzeń
-- 🔐 **Bezpieczne konta** - system rejestracji i logowania użytkowników
+-  **Organizację materiałów** - tworzenie folderów tematycznych i przesyłanie plików (.TXT)
+-  **AI-powered streszczenia** - automatyczne generowanie streszczeń z przesłanych dokumentów  
+-  **Inteligentne fiszki** - tworzenie fiszek do nauki na podstawie materiałów za pomocą sztucznej inteligencji
+-  **Intuicyjny interfejs** - responsywny design dostosowany do wszystkich urządzeń
+-  **Bezpieczne konta** - system rejestracji i logowania użytkowników
 
-Aplikacja została zbudowana w oparciu o **custom PHP MVC framework** z wykorzystaniem wzorców projektowych takich jak Repository Pattern, Service Layer i Dependency Injection.
+Aplikacja została zbudowana z wykorzystaniem wzorców projektowych takich jak Repository Pattern, Service Layer i Dependency Injection.
 
 
 ## ⚙️ Instalacja
@@ -43,7 +43,7 @@ $apiKey = "TWÓJ_OPENAI_API_KEY_TUTAJ";
 4. Wygeneruj nowy klucz API
 5. Wklej go w kodzie zamiast placeholder'a
 
-### 4. Uruchomienie z Docker (Zalecane)
+### 4. Uruchomienie z Docker 
 ```bash
 docker-compose up -d
 ```
