@@ -12,7 +12,7 @@ Nowoczesna aplikacja webowa do tworzenia materiałów edukacyjnych i fiszek do n
 -  **Intuicyjny interfejs** - responsywny design dostosowany do wszystkich urządzeń
 -  **Bezpieczne konta** - system rejestracji i logowania użytkowników
 
-Aplikacja została zbudowana w oparciu o **custom PHP MVC framework** z wykorzystaniem wzorców projektowych takich jak Repository Pattern, Service Layer i Dependency Injection.
+Aplikacja została zbudowana z wykorzystaniem wzorców projektowych takich jak Repository Pattern, Service Layer i Dependency Injection.
 
 
 ## ⚙️ Instalacja
