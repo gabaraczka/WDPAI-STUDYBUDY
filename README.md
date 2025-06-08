@@ -43,7 +43,7 @@ $apiKey = "TWÓJ_OPENAI_API_KEY_TUTAJ";
 4. Wygeneruj nowy klucz API
 5. Wklej go w kodzie zamiast placeholder'a
 
-### 4. Uruchomienie z Docker (Zalecane)
+### 4. Uruchomienie z Docker 
 ```bash
 docker-compose up -d
 ```
